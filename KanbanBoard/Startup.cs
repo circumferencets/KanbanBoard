@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Maui.Controls.Compatibility;
 using Microsoft.Maui.Controls.Hosting;
 using Microsoft.Maui.Controls.Xaml;
 using KanbanBoard.Db;
@@ -16,6 +17,10 @@ public class Startup : IStartup
         appBuilder
             .UseMauiApp<App>()
             .UseMauiServiceProviderFactory(constructorInjection: true)
+            .ConfigureMauiHandlers(handlers =>
+            {
+                handlers.AddCompatibilityRenderers(typeof(Xamarin.CommunityToolkit.UI.Views.MediaElementRenderer).Assembly);
+            })
             .ConfigureServices(services =>
             {
                 services.AddTransient<IPath, DbPath>();

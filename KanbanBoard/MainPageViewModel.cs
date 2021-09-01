@@ -4,7 +4,10 @@ using KanbanBoard.Db;
 using KanbanBoard.Models;
 using Microsoft.Maui;
 using Microsoft.Maui.Controls;
+using Microsoft.Maui.Graphics;
 using MvvmHelpers;
+using Xamarin.CommunityToolkit.UI.Views.Options;
+using Xamarin.CommunityToolkit.Extensions;
 
 namespace KanbanBoard;
 
@@ -170,31 +173,28 @@ public class MainPageViewModel : BaseViewModel
 
     private static Task<bool> SnackbarAsync(string title, string buttonText, Func<Task> task)
     {
-        return Task.FromResult(false);
-        //return Application.Current.MainPage.DisplaySnackBarAsync(title, buttonText, task, TimeSpan.FromSeconds(3));
+        return Application.Current.MainPage.DisplaySnackBarAsync(title, buttonText, task, TimeSpan.FromSeconds(3));
     }
 
     private static Task ToastAsync(string title)
     {
-        return Task.CompletedTask;
-        //return Application.Current.MainPage.DisplayToastAsync(title, 3500);
+        return Application.Current.MainPage.DisplayToastAsync(title, 3500);
     }
 
     private static Task WipReachedToastAsync(string title)
     {
-        return Task.CompletedTask;
-        //return Application.Current.MainPage.DisplayToastAsync(
-        //    new ToastOptions
-        //    {
-        //        BackgroundColor = Color.Navy,
-        //        Duration = TimeSpan.FromSeconds(5),
-        //        MessageOptions = new MessageOptions
-        //        {
-        //            Message = title,
-        //            Padding = new Thickness(140),
-        //            Foreground = Color.Teal,
-        //            Font = Font.SystemFontOfSize(25)
-        //        }
-        //    });
+        return Application.Current.MainPage.DisplayToastAsync(
+           new ToastOptions
+           {
+               BackgroundColor = Colors.Navy,
+               Duration = TimeSpan.FromSeconds(5),
+               MessageOptions = new MessageOptions
+               {
+                   Message = title,
+                   Padding = new Thickness(140),
+                   Foreground = Colors.Teal,
+                   Font = Font.SystemFontOfSize(25)
+               }
+           });
     }
 }
